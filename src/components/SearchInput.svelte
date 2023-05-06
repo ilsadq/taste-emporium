@@ -16,5 +16,5 @@
 
 <style lang="sass">
   .search--input
-    @apply h-10 w-80 text-dark rounded-lg border border-secondary px-4 leading-none focus:outline-primary
+    @apply h-10 w-80 border-secondary shadow-sm form-input rounded-lg focus:border-primary focus:ring-1 focus:ring-primary
 </style>

@@ -5,6 +5,7 @@
     import Headline from '../components/Headline.svelte';
     import {page} from '$app/stores'
     import Transition from "../components/Transition.svelte";
+    import ScrollBackButton from "../components/buttons/ScrollBackButton.svelte";
 </script>
 
 <div class="wrapper">
@@ -24,6 +25,7 @@
             <Footer/>
         </div>
     </div>
+    <ScrollBackButton/>
 </div>
 
 <style lang="sass">

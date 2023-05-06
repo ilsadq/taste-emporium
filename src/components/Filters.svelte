@@ -11,10 +11,6 @@
     </div>
     <div class="filter__wrapper--actions">
         <SearchInput on:search={x => dispatch('search', x.detail)}/>
-<!--        <div class="buttons__wrapper">-->
-<!--            <FilterButton/>-->
-<!--            <button class="h-10 w-28 rounded-lg leading-none font-medium border border-primary text-primary">Категории</button>-->
-<!--        </div>-->
     </div>
 </div>
 

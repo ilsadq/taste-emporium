@@ -25,7 +25,7 @@
 
 <style lang="sass">
   .card
-    @apply rounded-lg shadow md:h-72 overflow-hidden
+    @apply rounded-lg shadow-sm md:h-72 overflow-hidden
     &:hover
       img
         @apply scale-105
@@ -38,11 +38,14 @@
     &__content
       @apply px-4 py-3.5
       &--title
-        @apply text-xl font-medium text-ellipsis
+        @apply text-xl font-medium text-ellipsis text-dark
         display: -webkit-box
         -webkit-line-clamp: 2
         -webkit-box-orient: vertical
 
       &--time
         @apply text-secondary flex gap-x-1.5 items-center
+
+  .skeleton
+    @apply bg-secondary bg-opacity-40 animate-pulse rounded-lg
 </style>

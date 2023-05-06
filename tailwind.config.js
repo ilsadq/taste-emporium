@@ -21,8 +21,11 @@ export default {
       'lg': '800px',
       'md': '425px',
       'sm': '360px'
-    }
+    },
+    darkMode: 'class'
   },
-  plugins: [],
+  plugins: [
+      require('@tailwindcss/forms'),
+  ],
 }
 
