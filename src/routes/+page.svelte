@@ -124,11 +124,11 @@
     </div>
 </div>
 
-<!--{#if isVisible}-->
-<!--    <div class="fixed right-4 bottom-4">-->
-<!--        <ScrollBackButton/>-->
-<!--    </div>-->
-<!--{/if}-->
+{#if isVisible}
+    <div class="fixed right-4 bottom-4">
+        <ScrollBackButton/>
+    </div>
+{/if}
 
 <svelte:window on:scroll={scrollHandler}/>
 
