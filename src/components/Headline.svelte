@@ -34,12 +34,11 @@
              in:blur={{duration: ANIMATION_DURATION, delay: 250}}
              on:load={onLoadHandler}
              height="320"
-             width="1920"
-             alt="">
+             width="1920">
     {/key}
 </div>
 
 <style lang="sass">
   .headline__wrapper
-    @apply overflow-hidden h-56 md:h-80 flex items-center justify-center w-full max-w-[1920px] mx-auto
+    @apply overflow-hidden relative h-56 md:h-80 flex items-center justify-center w-full max-w-[1920px] mx-auto text-white
 </style>

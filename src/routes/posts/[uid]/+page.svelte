@@ -10,10 +10,9 @@
 
     const client = new PrismicIoAdapter();
 
-    let promise = Promise.resolve([]);
+    let promise = Promise.resolve();
 
-    onMount(async () => {
-        headlineSrc.set(null);
+    onMount(() => {
         promise = client.getPostContent($page.params.uid);
         promise.then(x => headlineSrc.set(x.imageUrl));
     })
@@ -90,12 +89,12 @@
                             <li class="item">
                                 <div class="item__image">
                                     {#if item.imageUrl}
-                                        <img src={item.imageUrl} alt="">
+                                        <img src={item.imageUrl} alt="" class="prose-2xl">
                                     {/if}
                                 </div>
                                 <div class="item__content">
-                                    <div class="item__content--step">Шаг {i + 1}</div>
-                                    <div class="item__content--description">{item.description}</div>
+                                    <h6 class="item__content--step">Шаг {i + 1}</h6>
+                                    <p class="item__content--description prose">{item.description}</p>
                                 </div>
                             </li>
                         {/each}
@@ -121,13 +120,13 @@
     @apply sticky left-0 top-0 m-0 h-screen w-16 bg-opacity-10 bg-primary opacity-0 hover:opacity-100 flex items-center justify-center
 
   .section-title
-    @apply text-2xl font-bold text-dark
+    @apply font-bold text-dark prose-2xl
 
   .content__wrapper
     @apply py-10 flex flex-col gap-y-10
 
   .title__wrapper
-    @apply flex justify-between
+    @apply flex justify-between gap-x-10
     &--title
       @apply text-5xl font-bold text-dark
 
@@ -135,7 +134,7 @@
       @apply flex flex-col gap-y-2.5
 
   .description
-    @apply text-dark
+    @apply text-dark prose-lg
 
   .energy-value__wrapper
     @apply h-52 flex flex-col gap-y-5
@@ -143,7 +142,7 @@
     &--content
       @apply flex items-center justify-center gap-x-16
       .card
-        @apply flex flex-col h-36 gap-y-2 justify-center items-center text-xl text-dark font-medium px-6 py-4
+        @apply flex flex-col h-36 gap-y-2 justify-center items-center prose-xl text-dark font-medium px-6 py-4
         &__value
           @apply font-bold
 
@@ -160,19 +159,19 @@
   .instruction__wrapper
     @apply flex flex-col gap-y-5
     &--content
-      @apply px-10 flex flex-col gap-y-10 items-center max-w-[1000px]
+      @apply px-10 flex flex-col gap-y-10 max-w-[1000px]
       .item
-        @apply h-80 grid grid-cols-2 gap-x-5
+        @apply min-h-[20rem] grid grid-cols-2 gap-x-5
         &__image
           @apply w-full overflow-hidden rounded-lg
           img
             @apply w-full h-full
 
         &__content
-          @apply flex flex-col gap-y-6
+          @apply flex flex-col
           &--step
-            @apply text-xl text-center text-dark
+            @apply prose-xl text-center text-dark
 
           &--description
-            @apply text-dark
+            @apply text-dark prose
 </style>

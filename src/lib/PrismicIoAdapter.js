@@ -7,12 +7,12 @@ class PrismicIoAdapter {
         this._client = createClient();
     }
 
-    async getSearchPosts(value, page = 0) {
-        console.log('Get posts by page: ', page, 'value: ', value);
+    async getPosts(page = 0, searchValue = '') {
+        console.log('Get posts by page: ', page, 'search value', searchValue);
         const response = await this._client.get({
             predicates: [
                 predicate.at('document.type', RECIPE_POST_TYPE),
-                predicate.fulltext(`my.${RECIPE_POST_TYPE}.post_title`, value)
+                predicate.fulltext(`my.${RECIPE_POST_TYPE}.post_title`, searchValue)
             ],
             orderings: {
                 field: 'document.first_publication_date',
@@ -31,40 +31,15 @@ class PrismicIoAdapter {
             })),
             page: response.page,
             totalResults: response.total_results_size,
-            totalPages: response.total_pages
-        }
-    }
-
-    async getPosts(page = 0) {
-        console.log('Get posts by page: ', page);
-        const response = await this._client.get({
-            predicates: [
-                predicate.at('document.type', RECIPE_POST_TYPE),
-            ],
-            orderings: {
-                field: 'document.first_publication_date',
-                direction: 'desc'
-            },
-            pageSize: POST_LIMIT,
-            page
-        })
-
-        return {
-            data: response.results.map(x => ({
-                title: x.data.post_title[0].text,
-                imageUrl: x.data.post_image.url,
-                cookingTime: x.data.cooking_time,
-                uid: x.data.postcontent.uid
-            })),
-            page: response.page,
-            totalResults: response.total_results_size,
-            totalPages: response.total_pages
+            totalPages: response.total_pages,
+            isEnd: null == response.next_page,
+            isStart: null == response.prev_page
         }
     }
 
     async getPostContent(uid) {
-        const response = await this._client.getByUID(POST_CONTENT_TYPE, uid);
         console.log('Get post content by id:', uid);
+        const response = await this._client.getByUID(POST_CONTENT_TYPE, uid);
         return {
             imageUrl: response.data.headline_image.url,
             title: response.data.title[0].text,

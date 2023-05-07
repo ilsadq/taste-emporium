@@ -7,7 +7,9 @@
     <div class="title">
         <a href="/">Taste Emporium</a>
     </div>
-    <DarkModeButton/>
+    <div class="flex gap-x-2.5 items-center">
+        <DarkModeButton/>
+    </div>
     <HeaderProgress/>
 </header>
 

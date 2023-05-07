@@ -6,6 +6,12 @@
     import {page} from '$app/stores'
     import Transition from "../components/Transition.svelte";
     import ScrollBackButton from "../components/buttons/ScrollBackButton.svelte";
+
+    let isVisible = false;
+
+    function scrollHandler() {
+        isVisible = window.scrollY > window.outerHeight;
+    }
 </script>
 
 <div class="wrapper">
@@ -25,8 +31,14 @@
             <Footer/>
         </div>
     </div>
-    <ScrollBackButton/>
+    {#if isVisible}
+        <div class="fixed right-4 bottom-4">
+            <ScrollBackButton/>
+        </div>
+    {/if}
 </div>
+
+<svelte:window on:scroll={scrollHandler}/>
 
 <style lang="sass">
   .wrapper

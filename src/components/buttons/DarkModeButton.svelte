@@ -1,21 +1,18 @@
 <script>
     import {Icon, Moon, Sun} from "svelte-hero-icons";
     import {ICON_SIZE} from "../../SITE.js";
+    import {slide} from 'svelte/transition';
 
     let isDark = false;
-
-    function clickHandler() {
-        isDark = !isDark;
-    }
 </script>
 
-<button on:click={clickHandler} class="flex overflow-hidden w-8 h-8 text-dark justify-center items-center">
+<button on:click={() => isDark = !isDark} class="flex overflow-hidden w-8 h-8 justify-center items-center">
     {#if isDark}
-        <span>
+        <span in:slide class="text-secondary">
             <Icon src={Moon} size={ICON_SIZE}/>
         </span>
     {:else}
-        <span>
+        <span in:slide class="text-primary">
             <Icon src={Sun} size={ICON_SIZE}/>
         </span>
     {/if}

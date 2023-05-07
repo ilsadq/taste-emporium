@@ -1,7 +1,7 @@
 <script>
     import SearchInput from "./SearchInput.svelte";
-    import { createEventDispatcher } from 'svelte';
-    const dispatch = createEventDispatcher();
+
+    export let searchValue = '';
 </script>
 
 <div class="filter__wrapper">
@@ -10,7 +10,9 @@
         <div>Найдите идеальный рецепт для завтрака, обеда или ужина.</div>
     </div>
     <div class="filter__wrapper--actions">
-        <SearchInput on:search={x => dispatch('search', x.detail)}/>
+        <div class="search__wrapper">
+            <SearchInput bind:value={searchValue}/>
+        </div>
     </div>
 </div>
 
@@ -21,6 +23,7 @@
       @apply flex flex-col gap-y-2.5 text-dark
       h1
         @apply text-4xl font-medium
+
     &--actions
       @apply flex justify-between
       .buttons__wrapper
