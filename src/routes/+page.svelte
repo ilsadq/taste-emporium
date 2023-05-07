@@ -19,6 +19,8 @@
     let isError = false;
     let fetching = true;
 
+    let isVisible = false;
+
     let searchValue = '';
 
     let posts = [];
@@ -60,6 +62,10 @@
         await loadData();
     }
 
+    function scrollHandler() {
+        isVisible = window.scrollY > window.outerHeight;
+    }
+
     //#endregion
 
     //#region Extensions
@@ -83,7 +89,7 @@
     //#endregion
 </script>
 
-<div class="lg:container lg:px-0 px-4">
+<div class="md:container 2xl:px-0 px-5">
     <div class="page__wrapper">
         <Filters bind:searchValue/>
         {#if showLoader}
@@ -118,6 +124,14 @@
     </div>
 </div>
 
+<!--{#if isVisible}-->
+<!--    <div class="fixed right-4 bottom-4">-->
+<!--        <ScrollBackButton/>-->
+<!--    </div>-->
+<!--{/if}-->
+
+<svelte:window on:scroll={scrollHandler}/>
+
 <style lang="sass">
   .loader__wrapper
     @apply flex justify-center
@@ -126,7 +140,7 @@
     @apply py-10 bg-white min-h-screen
 
   .content__wrapper
-    @apply grid md:grid-cols-2 lg:grid-cols-3 pt-10 sm:gap-5 pb-10
+    @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 pt-10 sm:gap-5 pb-10
 
   .not-found__wrapper
     @apply grid place-content-center

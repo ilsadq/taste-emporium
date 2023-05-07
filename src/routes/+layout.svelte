@@ -5,18 +5,11 @@
     import Headline from '../components/Headline.svelte';
     import {page} from '$app/stores'
     import Transition from "../components/Transition.svelte";
-    import ScrollBackButton from "../components/buttons/ScrollBackButton.svelte";
-
-    let isVisible = false;
-
-    function scrollHandler() {
-        isVisible = window.scrollY > window.outerHeight;
-    }
 </script>
 
 <div class="wrapper">
     <div class="header__wrapper">
-        <div class="container">
+        <div class="md:container px-4 md:px-0">
             <Header/>
         </div>
     </div>
@@ -26,19 +19,12 @@
             <slot/>
         </Transition>
     </main>
-    <div class="footer__wrapper">
-        <div class="container">
+    <div class="footer__wrapper px-4 md:px-0">
+        <div class="md:container">
             <Footer/>
         </div>
     </div>
-    {#if isVisible}
-        <div class="fixed right-4 bottom-4">
-            <ScrollBackButton/>
-        </div>
-    {/if}
 </div>
-
-<svelte:window on:scroll={scrollHandler}/>
 
 <style lang="sass">
   .wrapper

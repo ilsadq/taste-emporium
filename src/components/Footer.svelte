@@ -27,14 +27,13 @@
 
 <style lang="sass">
   .footer
-    @apply h-24 flex items-center justify-between
+    @apply md:h-24 grid grid-cols-2 grid-rows-2 gap-y-5 gap-x-2.5 md:gap-0 md:flex md:items-center justify-between py-5 lg:py-0
     &--logo
       @apply text-xl text-white font-bold
 
     &--creators
-      @apply text-xl text-white font-medium flex flex-col gap-y-2.5
-
+      @apply text-xl text-white font-medium justify-end flex flex-col gap-y-2.5
 
     &--links
-      @apply flex flex-col gap-y-2.5
+      @apply flex justify-start md:flex-col gap-2.5
 </style>

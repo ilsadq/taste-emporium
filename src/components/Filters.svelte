@@ -26,6 +26,6 @@
 
     &--actions
       @apply flex justify-between
-      .buttons__wrapper
-        @apply flex gap-x-5 items-end
+      .search__wrapper
+        @apply flex w-full md:w-auto
 </style>

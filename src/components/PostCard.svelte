@@ -28,13 +28,15 @@
 
 <style lang="sass">
   .card
-    @apply rounded-lg shadow-sm md:h-72 overflow-hidden
+    @apply rounded-lg shadow-sm h-72 overflow-hidden grid grid-rows-[184px_1fr]
+    img
+      @apply w-full
     &:hover
       img
         @apply scale-105
 
     &__image--wrapper
-      @apply overflow-hidden md:h-[184px]
+      @apply overflow-hidden
       img
         @apply transition-transform w-full md:w-auto
 

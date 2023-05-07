@@ -31,10 +31,15 @@
 <div class="headline__wrapper" style="--data-color: {$headlineHexColor}">
     {#key src}
         <img {src}
-             in:blur={{duration: ANIMATION_DURATION, delay: 250}}
+             in:blur={{duration: ANIMATION_DURATION, delay: 150}}
              on:load={onLoadHandler}
              height="320"
-             width="1920">
+             width="1920"
+             alt="headline">
+        {#if !loaded}
+            <div in:blur={{delay: 200, duration: 0}}
+                 class="absolute inset-0 bg-secondary bg-opacity-30 animate-pulse z-10"></div>
+        {/if}
     {/key}
 </div>
 

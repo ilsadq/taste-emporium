@@ -11,10 +11,12 @@
     const client = new PrismicIoAdapter();
 
     let promise = Promise.resolve();
+    let more = false;
 
-    onMount(() => {
+    onMount(async () => {
+        headlineSrc.set('');
         promise = client.getPostContent($page.params.uid);
-        promise.then(x => headlineSrc.set(x.imageUrl));
+        headlineSrc.set((await promise).imageUrl);
     })
 </script>
 
@@ -32,18 +34,23 @@
                 <div class="title__wrapper">
                     <h1 class="title__wrapper--title">{data.title}</h1>
                     <div class="title__wrapper--actions">
-                        <div class="flex text-dark gap-x-2.5 items-center">
+                        <div class="flex flex-nowrap text-dark gap-x-2.5 items-center">
                             <Icon src={Clock} size={ICON_SIZE} class="text-dark"/>
-                            <span class="text-sm">{data.cookingTime} мин</span>
+                            <span class="text-sm whitespace-nowrap">{data.cookingTime} мин</span>
                         </div>
-                        <button on:click={() => window.print()} class="flex gap-x-2.5 items-center text-dark">
+                        <button on:click={() => window.print()} class="hidden md:flex gap-x-2.5 items-center text-dark">
                             <Icon src={Printer} size={ICON_SIZE} class="text-dark"/>
                             <span class="text-sm">Распечатать</span>
                         </button>
                     </div>
                 </div>
                 <hr class="bg-dark">
-                <div class="description">{data.description}</div>
+                <div class="description custom-scroll">
+                    <div class:more class="des">{data.description}</div>
+                    <button on:click={() => more = !more} class:more class="more__button">
+                        Подробнее
+                    </button>
+                </div>
                 <div class="energy-value__wrapper">
                     <h4 class="section-title">ЭНЕРГЕТИЧЕСКАЯ ЦЕННОСТЬ НА ПОРЦИЮ</h4>
                     <div class="energy-value__wrapper--content">
@@ -112,56 +119,66 @@
     @apply flex justify-center min-h-screen bg-white
 
   .page__wrapper
-    @apply relative flex
+    @apply relative flex bg-white
     .page
-      @apply container bg-white rounded-lg -translate-y-20 md:-translate-x-8
+      @apply lg:container z-20 px-4 bg-white rounded-lg lg:-translate-y-20 lg:-translate-x-8
 
   .back__button
-    @apply sticky left-0 top-0 m-0 h-screen w-16 bg-opacity-10 bg-primary opacity-0 hover:opacity-100 flex items-center justify-center
+    @apply hidden sticky left-0 top-0 m-0 h-screen w-16 bg-opacity-10 bg-primary opacity-0 hover:opacity-100 md:flex items-center justify-center
 
   .section-title
-    @apply font-bold text-dark prose-2xl
+    @apply hidden lg:block font-medium md:font-bold text-dark prose-2xl
 
   .content__wrapper
-    @apply py-10 flex flex-col gap-y-10
+    @apply py-10 flex flex-col gap-y-8 md:gap-y-10
 
   .title__wrapper
-    @apply flex justify-between gap-x-10
+    @apply flex flex-wrap md:flex-nowrap justify-between items-center md:items-start gap-2.5 md:gap-x-10
     &--title
-      @apply text-5xl font-bold text-dark
+      @apply text-2xl lg:text-5xl font-bold text-dark
 
     &--actions
-      @apply flex flex-col gap-y-2.5
+      @apply flex flex-col gap-y-2.5 ml-auto
 
   .description
-    @apply text-dark prose-lg
+    @apply text-dark prose-xl md:prose-lg relative text-ellipsis transition
+    .des
+      @apply h-56 md:h-auto overflow-y-hidden
+      &.more
+        @apply h-auto overflow-y-auto
+
+    .more__button
+      @apply h-16 md:hidden rounded-lg prose-xl bg-primary text-white w-full absolute bottom-0 left-0 ring-0
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.5)
+      &.more
+        @apply hidden
 
   .energy-value__wrapper
-    @apply h-52 flex flex-col gap-y-5
+    @apply lg:h-52 flex flex-col gap-y-5
 
     &--content
-      @apply flex items-center justify-center gap-x-16
+      @apply flex flex-col lg:flex-row lg:items-center lg:justify-center gap-y-6 md:gap-x-16
       .card
-        @apply flex flex-col h-36 gap-y-2 justify-center items-center prose-xl text-dark font-medium px-6 py-4
+        @apply flex lg:flex-col lg:h-36 lg:gap-y-2 justify-start lg:justify-center items-start lg:items-center prose-xl text-dark font-medium lg:px-6 lg:py-4
         &__value
-          @apply font-bold
+          @apply lg:font-bold ml-auto lg:ml-0
 
         &__abbreviation
-          @apply text-base
+          @apply lg:text-base ml-2.5 lg:ml-0
 
   .ingredients__wrapper
     @apply flex flex-col gap-y-5
     &--content
       @apply grid gap-y-5
       .item
-        @apply flex justify-between items-end text-dark gap-x-1 px-10
+        @apply flex justify-between prose-lg lg:prose-base items-end text-dark gap-x-1 lg:px-10
 
   .instruction__wrapper
     @apply flex flex-col gap-y-5
     &--content
-      @apply px-10 flex flex-col gap-y-10 max-w-[1000px]
+      @apply lg:px-10 flex flex-col gap-y-10 md:max-w-[1000px]
       .item
-        @apply min-h-[20rem] grid grid-cols-2 gap-x-5
+        @apply min-h-[20rem] grid grid-rows-[12rem_auto] lg:grid-rows-1 xl:grid-cols-2 gap-y-5 xl:gap-y-0 gap-x-5
         &__image
           @apply w-full overflow-hidden rounded-lg
           img
@@ -170,8 +187,8 @@
         &__content
           @apply flex flex-col
           &--step
-            @apply prose-xl text-center text-dark
+            @apply prose-2xl md:prose-xl text-center text-dark
 
           &--description
-            @apply text-dark prose
+            @apply text-dark prose-lg md:prose
 </style>

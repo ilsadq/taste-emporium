@@ -18,6 +18,7 @@ export default {
     },
     screens: {
       '2xl': '1100px',
+      'xl': '1050px',
       'lg': '800px',
       'md': '425px',
       'sm': '360px'

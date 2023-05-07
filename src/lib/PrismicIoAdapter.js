@@ -8,7 +8,6 @@ class PrismicIoAdapter {
     }
 
     async getPosts(page = 0, searchValue = '') {
-        console.log('Get posts by page: ', page, 'search value', searchValue);
         const response = await this._client.get({
             predicates: [
                 predicate.at('document.type', RECIPE_POST_TYPE),
@@ -38,7 +37,6 @@ class PrismicIoAdapter {
     }
 
     async getPostContent(uid) {
-        console.log('Get post content by id:', uid);
         const response = await this._client.getByUID(POST_CONTENT_TYPE, uid);
         return {
             imageUrl: response.data.headline_image.url,
