@@ -7,7 +7,7 @@
     export let cookingTime = undefined;
     export let uid = undefined;
 
-    const url = `/posts/${uid}`;
+    const url = `${import.meta.env.BASE_URL}posts/${uid}`;
 </script>
 
 <article class="card peer">

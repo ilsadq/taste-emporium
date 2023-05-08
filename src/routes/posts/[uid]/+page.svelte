@@ -7,6 +7,7 @@
     import Loader from "../../../components/Loader.svelte";
     import {ICON_SIZE} from "../../../SITE.js";
     import PrismicIoAdapter from "$lib/PrismicIoAdapter.js";
+    import BadDay from "../../../components/icons/BadDay.svelte";
 
     const client = new PrismicIoAdapter();
 
@@ -20,8 +21,16 @@
     })
 </script>
 
+<svelte:head>
+    {#await promise}
+        <title>Taste Emporium</title>
+        {:then data}
+        <title>{data.title}</title>
+    {/await}
+</svelte:head>
+
 <div class="page__wrapper">
-    <button on:click={() => goto('/')} class="back__button">
+    <button on:click={() => goto(import.meta.env.BASE_URL)} class="back__button">
         <Icon src={ArrowLeft} size={ICON_SIZE} class="text-primary"/>
     </button>
     <div class="page">
@@ -109,7 +118,10 @@
                 </div>
             </div>
         {:catch error}
-            <pre>{error}</pre>
+            <div class="error__wrapper">
+                <BadDay/>
+                <h4>Error</h4>
+            </div>
         {/await}
     </div>
 </div>
@@ -118,13 +130,18 @@
   .loader__wrapper
     @apply flex justify-center min-h-screen bg-white
 
+  .error__wrapper
+    @apply flex flex-col min-h-screen items-center justify-center
+    h4
+      @apply text-primary text-6xl font-bold
+
   .page__wrapper
     @apply relative flex bg-white
     .page
       @apply lg:container z-20 px-4 bg-white rounded-lg lg:-translate-y-20 lg:-translate-x-8
 
   .back__button
-    @apply hidden sticky left-0 top-0 m-0 h-screen w-16 bg-opacity-10 bg-primary opacity-0 hover:opacity-100 md:flex items-center justify-center
+    @apply hidden sticky left-0 top-0 m-0 h-screen w-16 bg-opacity-10 bg-primary opacity-0 hover:opacity-100 lg:flex items-center justify-center
 
   .section-title
     @apply hidden lg:block font-medium md:font-bold text-dark prose-2xl
@@ -141,15 +158,16 @@
       @apply flex flex-col gap-y-2.5 ml-auto
 
   .description
-    @apply text-dark prose-xl md:prose-lg relative text-ellipsis transition
+    @apply text-dark prose-xl lg:prose-lg relative text-ellipsis transition
     .des
-      @apply h-56 md:h-auto overflow-y-hidden
+      @apply h-56 lg:h-auto overflow-y-hidden
       &.more
         @apply h-auto overflow-y-auto
 
     .more__button
-      @apply h-16 md:hidden rounded-lg prose-xl bg-primary text-white w-full absolute bottom-0 left-0 ring-0
+      @apply h-16 lg:hidden rounded-lg prose-xl bg-primary text-white w-full absolute bottom-0 left-0 ring-0
       box-shadow: 0 0 24px rgba(0, 0, 0, 0.5)
+
       &.more
         @apply hidden
 
@@ -157,7 +175,7 @@
     @apply lg:h-52 flex flex-col gap-y-5
 
     &--content
-      @apply flex flex-col lg:flex-row lg:items-center lg:justify-center gap-y-6 md:gap-x-16
+      @apply flex flex-col lg:flex-row lg:items-center lg:justify-center gap-y-6 lg:gap-x-16
       .card
         @apply flex lg:flex-col lg:h-36 lg:gap-y-2 justify-start lg:justify-center items-start lg:items-center prose-xl text-dark font-medium lg:px-6 lg:py-4
         &__value
@@ -178,11 +196,11 @@
     &--content
       @apply lg:px-10 flex flex-col gap-y-10 md:max-w-[1000px]
       .item
-        @apply min-h-[20rem] grid grid-rows-[12rem_auto] lg:grid-rows-1 xl:grid-cols-2 gap-y-5 xl:gap-y-0 gap-x-5
+        @apply min-h-[20rem] grid grid-rows-[14rem_auto] lg:grid-rows-1 xl:grid-cols-2 gap-y-5 xl:gap-y-0 gap-x-5
         &__image
-          @apply w-full overflow-hidden rounded-lg
+          @apply w-full
           img
-            @apply w-full h-full
+            @apply w-full h-full lg:h-80 rounded-lg
 
         &__content
           @apply flex flex-col
@@ -190,5 +208,5 @@
             @apply prose-2xl md:prose-xl text-center text-dark
 
           &--description
-            @apply text-dark prose-lg md:prose
+            @apply text-dark prose-lg lg:prose
 </style>

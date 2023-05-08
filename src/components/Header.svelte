@@ -25,7 +25,7 @@
 
 <style lang="sass">
   .header
-    @apply h-20 flex items-center justify-between
+    @apply h-20 flex items-center justify-between overflow-x-hidden
 
     .title
       @apply text-2xl text-primary font-bold whitespace-nowrap

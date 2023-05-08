@@ -10,6 +10,7 @@
     import {ANIMATION_DURATION, POST_LIMIT} from "../SITE.js";
     import NotFound from "../components/icons/NotFound.svelte";
     import ScrollBackButton from "../components/buttons/ScrollBackButton.svelte";
+    import BadDay from "../components/icons/BadDay.svelte";
 
     const client = new PrismicIoAdapter();
 
@@ -36,12 +37,15 @@
         ...newPosts
     ];
 
-    $: searchHandler(searchValue);
+    $: searchHandler(searchValue)
+    $: showLoader
+    $: isError
+    $: isEnd
     //#endregion
 
     //#region Override
     onMount(async () => {
-        headlineSrc.set('/headline.webp');
+        headlineSrc.set('./headline.webp');
         await loadData();
         showLoader = false;
     });
@@ -88,6 +92,10 @@
     }
     //#endregion
 </script>
+
+<svelte:head>
+    <title>Taste Emporium</title>
+</svelte:head>
 
 <div class="md:container 2xl:px-0 px-5">
     <div class="page__wrapper">

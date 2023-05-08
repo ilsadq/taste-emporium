@@ -26,5 +26,5 @@
 
 <style lang="sass">
     .progress
-        @apply h-1 bg-primary absolute left-0 top-0 rounded-r-lg
+        @apply h-1 bg-primary absolute left-0 top-0 rounded-r-lg max-w-[100vw]
 </style>
