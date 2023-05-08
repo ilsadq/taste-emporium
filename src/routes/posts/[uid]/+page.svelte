@@ -30,7 +30,7 @@
 </svelte:head>
 
 <div class="page__wrapper">
-    <button on:click={() => goto(import.meta.env.BASE_URL)} class="back__button">
+    <button on:click={() => goto('/')} class="back__button">
         <Icon src={ArrowLeft} size={ICON_SIZE} class="text-primary"/>
     </button>
     <div class="page">
